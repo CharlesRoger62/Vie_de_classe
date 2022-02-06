@@ -9,7 +9,6 @@ class AddingBonusDialog extends StatefulWidget {
 }
 
 class _AddingBonusDialogState extends State<AddingBonusDialog> {
-
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
@@ -38,31 +37,29 @@ class _AddingBonusDialogState extends State<AddingBonusDialog> {
         ),
       ),
       actions: [
-        FlatButton(
+        ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text("Annuler",
+            child: Text(
+              "Annuler",
               style: TextStyle(
                 color: Colors.red,
               ),
-            )
-        ),
-        FlatButton(
+            )),
+        ElevatedButton(
             onPressed: () {
               String bonusName = nameController.text;
               double bonusValue = double.parse('${valueController.text}');
-              Bonus newBonus = Bonus(bonusName,bonusValue);
-              Data().bonusList.add(newBonus);
+              Bonus newBonus = Bonus(bonusName, bonusValue);
+              Data().bonusList!.add(newBonus);
               Data().sortMalusOrBonusList(false);
               Navigator.of(context).pop();
             },
-            child: Text("Valider",
-              style: TextStyle(
-                  color: Colors.blue
-              ),
-            )
-        )
+            child: Text(
+              "Valider",
+              style: TextStyle(color: Colors.blue),
+            ))
       ],
     );
   }

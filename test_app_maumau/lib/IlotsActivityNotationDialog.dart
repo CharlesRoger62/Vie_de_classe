@@ -5,19 +5,23 @@ import 'IlotsActivity.dart';
 import 'models/Student.dart';
 
 class IlotsActivityNotationDialog extends StatefulWidget {
-  final int indexIlot;
-  final List<Student> ilot;
-  final IlotsActivityState parent;
+  final int? indexIlot;
+  final List<Student?>? ilot;
+  final IlotsActivityState? parent;
 
-  IlotsActivityNotationDialog({Key key, this.indexIlot, this.ilot, this.parent}) : super(key : key);
+  IlotsActivityNotationDialog(
+      {Key? key, this.indexIlot, this.ilot, this.parent})
+      : super(key: key);
 
   @override
-  _IlotsActivityNotationDialogState createState() => _IlotsActivityNotationDialogState();
+  _IlotsActivityNotationDialogState createState() =>
+      _IlotsActivityNotationDialogState();
 }
 
-class _IlotsActivityNotationDialogState extends State<IlotsActivityNotationDialog> {
-  List<int> noteList = [0,1,2,3,4,5];
-  int selectedNote;
+class _IlotsActivityNotationDialogState
+    extends State<IlotsActivityNotationDialog> {
+  List<int> noteList = [0, 1, 2, 3, 4, 5];
+  int? selectedNote;
 
   @override
   Widget build(BuildContext context) {
@@ -31,39 +35,39 @@ class _IlotsActivityNotationDialogState extends State<IlotsActivityNotationDialo
             itemExtent: 60.0,
             itemCount: noteList.length,
             itemBuilder: (context, index) {
-              return NoteCard(index);
-            }
-        ),
+              return noteCard(index);
+            }),
       ),
       actions: [
-        FlatButton(
+        ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text("Annuler",
+            child: Text(
+              "Annuler",
               style: TextStyle(
                 color: Colors.red,
               ),
-            )
-        ),
-        FlatButton(
+            )),
+        ElevatedButton(
             onPressed: () {
-              if(selectedNote != null){
-                widget.parent.addGradeToIlot(widget.ilot, selectedNote.toDouble());
+              if (selectedNote != null) {
+                widget.parent!
+                    .addGradeToIlot(widget.ilot, selectedNote!.toDouble());
                 Navigator.of(context).pop();
               }
             },
-            child: Text("Valider",
+            child: Text(
+              "Valider",
               style: TextStyle(
                 color: selectedNote != null ? Colors.green : Colors.grey,
               ),
-            )
-        ),
+            )),
       ],
     );
   }
 
-  Widget NoteCard(int index){
+  Widget noteCard(int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -78,8 +82,7 @@ class _IlotsActivityNotationDialogState extends State<IlotsActivityNotationDialo
               width: 3.0,
               color: selectedNote == index ? Colors.blue : Colors.white,
             ),
-            borderRadius: BorderRadius.circular(10.0)
-        ),
+            borderRadius: BorderRadius.circular(10.0)),
         child: Container(
           height: 100,
           width: 100,
@@ -88,12 +91,14 @@ class _IlotsActivityNotationDialogState extends State<IlotsActivityNotationDialo
             child: Column(
               children: <Widget>[
                 Expanded(
-                  child: Center(child: Text(index.toString(),
+                  child: Center(
+                      child: Text(
+                    index.toString(),
                     style: TextStyle(
-                        fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                            ? MediaQuery.of(context).size.width/20
-                            : MediaQuery.of(context).size.height/20
-                    ),
+                        fontSize: (MediaQuery.of(context).orientation ==
+                                Orientation.portrait)
+                            ? MediaQuery.of(context).size.width / 20
+                            : MediaQuery.of(context).size.height / 20),
                   )),
                 ),
               ],

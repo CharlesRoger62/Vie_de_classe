@@ -9,7 +9,6 @@ class AddingMalusDialog extends StatefulWidget {
 }
 
 class _AddingMalusDialogState extends State<AddingMalusDialog> {
-
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
@@ -38,31 +37,29 @@ class _AddingMalusDialogState extends State<AddingMalusDialog> {
         ),
       ),
       actions: [
-        FlatButton(
+        ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              },
-            child: Text("Annuler",
+            },
+            child: Text(
+              "Annuler",
               style: TextStyle(
                 color: Colors.red,
               ),
-            )
-        ),
-        FlatButton(
+            )),
+        ElevatedButton(
             onPressed: () {
               String malusName = nameController.text;
               double malusValue = double.parse('${valueController.text}') * -1;
-              Malus newMalus = Malus(malusName,malusValue);
-              Data().malusList.add(newMalus);
+              Malus newMalus = Malus(malusName, malusValue);
+              Data().malusList!.add(newMalus);
               Data().sortMalusOrBonusList(true);
               Navigator.of(context).pop();
-              },
-            child: Text("Valider",
-              style: TextStyle(
-                  color: Colors.blue
-              ),
-            )
-        )
+            },
+            child: Text(
+              "Valider",
+              style: TextStyle(color: Colors.blue),
+            ))
       ],
     );
   }

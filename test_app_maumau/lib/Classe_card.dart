@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'ClasseView.dart';
-import 'models/Classe.dart';
+import 'ClassView.dart';
+import 'models/Class.dart';
 
 class ClasseCard extends StatefulWidget {
-  final Classe classe;
-  final bool modifier;
+  final Class? classe;
+  final bool? modifier;
 
   @override
   _ClasseCardState createState() => _ClasseCardState();
 
-  const ClasseCard({Key key, this.classe, this.modifier}) : super(key: key);
+  const ClasseCard({Key? key, this.classe, this.modifier}) : super(key: key);
 }
 
 class _ClasseCardState extends State<ClasseCard> {
@@ -19,16 +19,18 @@ class _ClasseCardState extends State<ClasseCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if(!widget.modifier){
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) =>
-                  ClasseView(classe: widget.classe)
-          ));
+        if (!widget.modifier!) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ClassView(selectedClass: widget.classe)));
         } else {
-          Navigator.push(context, MaterialPageRoute(
-              builder: (context) =>
-                  ClasseView(classe: widget.classe)
-          ));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ClassView(selectedClass: widget.classe)));
         }
       },
       child: Card(
@@ -38,8 +40,7 @@ class _ClasseCardState extends State<ClasseCard> {
             side: BorderSide(
               color: Colors.white,
             ),
-            borderRadius: BorderRadius.circular(10.0)
-        ),
+            borderRadius: BorderRadius.circular(10.0)),
         child: Container(
           height: 200,
           width: 100,
@@ -48,12 +49,14 @@ class _ClasseCardState extends State<ClasseCard> {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  child: Center(child: Text(widget.classe.name,
+                  child: Center(
+                      child: Text(
+                    widget.classe!.name!,
                     style: TextStyle(
-                        fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                            ? MediaQuery.of(context).size.width/20
-                            : MediaQuery.of(context).size.height/20
-                    ),
+                        fontSize: (MediaQuery.of(context).orientation ==
+                                Orientation.portrait)
+                            ? MediaQuery.of(context).size.width / 20
+                            : MediaQuery.of(context).size.height / 20),
                   )),
                 ),
               ],

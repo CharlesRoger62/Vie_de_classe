@@ -10,7 +10,7 @@ class BonusModifierView extends StatefulWidget {
 }
 
 class _BonusModifierViewState extends State<BonusModifierView> {
-  List<Bonus> bonusList;
+  List<Bonus>? bonusList;
 
   @override
   void initState() {
@@ -28,15 +28,14 @@ class _BonusModifierViewState extends State<BonusModifierView> {
             children: <Widget>[
               SizedBox(
                 width: 800.0,
-                height: bonusList.length*100-50.0,
+                height: bonusList!.length * 100 - 50.0,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemExtent: 80.0,
-                    itemCount: bonusList.length,
+                    itemCount: bonusList!.length,
                     itemBuilder: (context, index) {
-                      return MalusModifierCard(bonusList[index]);
-                    }
-                ),
+                      return malusModifierCard(bonusList![index]);
+                    }),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 100.0),
@@ -44,16 +43,15 @@ class _BonusModifierViewState extends State<BonusModifierView> {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (BuildContext) {
+                        builder: (BuildContext context) {
                           return AddingBonusDialog();
-                        }
-                    );
+                        });
                   },
                   child: Row(
                     children: <Widget>[
                       Icon(Icons.add, color: Colors.green),
                       SizedBox(width: 5.0),
-                      Text("Ajouter un bonus", style: TextStyle( fontSize: 20.0))
+                      Text("Ajouter un bonus", style: TextStyle(fontSize: 20.0))
                     ],
                   ),
                 ),
@@ -65,7 +63,7 @@ class _BonusModifierViewState extends State<BonusModifierView> {
     );
   }
 
-  Widget MalusModifierCard(Bonus bonus) {
+  Widget malusModifierCard(Bonus bonus) {
     return Card(
       shadowColor: Colors.black,
       elevation: 2.0,
@@ -73,8 +71,7 @@ class _BonusModifierViewState extends State<BonusModifierView> {
           side: BorderSide(
             color: Colors.white,
           ),
-          borderRadius: BorderRadius.circular(10.0)
-      ),
+          borderRadius: BorderRadius.circular(10.0)),
       child: Container(
         height: 200,
         width: 100,
@@ -83,39 +80,44 @@ class _BonusModifierViewState extends State<BonusModifierView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Center(child: Text(bonus.name,
+                Center(
+                    child: Text(
+                  bonus.name,
                   style: TextStyle(
-                      fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                          ? MediaQuery.of(context).size.width/20
-                          : MediaQuery.of(context).size.height/20
-                  ),
+                      fontSize: (MediaQuery.of(context).orientation ==
+                              Orientation.portrait)
+                          ? MediaQuery.of(context).size.width / 20
+                          : MediaQuery.of(context).size.height / 20),
                 )),
                 Row(
                   children: <Widget>[
-                    Center(child: Text(bonus.value.toString(),
+                    Center(
+                        child: Text(
+                      bonus.value.toString(),
                       style: TextStyle(
                           color: Colors.green,
-                          fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                              ? MediaQuery.of(context).size.width/20
-                              : MediaQuery.of(context).size.height/20
-                      ),
+                          fontSize: (MediaQuery.of(context).orientation ==
+                                  Orientation.portrait)
+                              ? MediaQuery.of(context).size.width / 20
+                              : MediaQuery.of(context).size.height / 20),
                     )),
                     SizedBox(width: 20.0),
                     GestureDetector(
                         onTap: () {
                           setState(() {
-                            bonusList.remove(bonus);
+                            bonusList!.remove(bonus);
                           });
                         },
                         child: Icon(
-                          Icons.close, color: Colors.red, size: 30.0,)
-                    ),
+                          Icons.close,
+                          color: Colors.red,
+                          size: 30.0,
+                        )),
                     SizedBox(width: 5.0)
                   ],
                 )
               ],
-            )
-        ),
+            )),
       ),
     );
   }
